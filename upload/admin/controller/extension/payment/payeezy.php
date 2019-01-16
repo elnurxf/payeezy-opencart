@@ -2,7 +2,7 @@
 
 class ControllerExtensionPaymentPayeezy extends Controller
 {
-    private $error = array();
+    private $error = [];
 
     public function index()
     {
@@ -17,7 +17,7 @@ class ControllerExtensionPaymentPayeezy extends Controller
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
+            $this->response->redirect($this->url->link('marketplace/extension', 'user_token='.$this->session->data['user_token'].'&type=payment', true));
         }
 
         if (isset($this->error['warning'])) {
@@ -44,26 +44,26 @@ class ControllerExtensionPaymentPayeezy extends Controller
             $data['error_transaction_key'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
-        );
+            'href' => $this->url->link('common/dashboard', 'user_token='.$this->session->data['user_token'], true),
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
-            'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true),
-        );
+            'href' => $this->url->link('marketplace/extension', 'user_token='.$this->session->data['user_token'].'&type=payment', true),
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('extension/payment/payeezy', 'user_token=' . $this->session->data['user_token'], true),
-        );
+            'href' => $this->url->link('extension/payment/payeezy', 'user_token='.$this->session->data['user_token'], true),
+        ];
 
-        $data['action'] = $this->url->link('extension/payment/payeezy', 'user_token=' . $this->session->data['user_token'], true);
+        $data['action'] = $this->url->link('extension/payment/payeezy', 'user_token='.$this->session->data['user_token'], true);
 
-        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
+        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token='.$this->session->data['user_token'].'&type=payment', true);
 
         if (isset($this->request->post['payment_payeezy_x_gateway_id'])) {
             $data['payment_payeezy_x_gateway_id'] = $this->request->post['payment_payeezy_x_gateway_id'];
@@ -83,7 +83,7 @@ class ControllerExtensionPaymentPayeezy extends Controller
             $data['payment_payeezy_transaction_key'] = $this->config->get('payment_payeezy_transaction_key');
         }
 
-        $data['callback'] = HTTP_CATALOG . 'index.php?route=extension/payment/payeezy/callback';
+        $data['callback'] = HTTP_CATALOG.'index.php?route=extension/payment/payeezy/callback';
 
         if (isset($this->request->post['payment_payeezy_total'])) {
             $data['payment_payeezy_total'] = $this->request->post['payment_payeezy_total'];
@@ -111,16 +111,15 @@ class ControllerExtensionPaymentPayeezy extends Controller
             $data['payment_payeezy_sort_order'] = $this->config->get('payment_payeezy_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/payeezy', $data));
     }
 
     protected function validate()
     {
-
         if (!$this->user->hasPermission('modify', 'extension/payment/payeezy')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }

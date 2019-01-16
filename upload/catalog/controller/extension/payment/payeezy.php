@@ -33,20 +33,20 @@ class ControllerExtensionPaymentPayeezy extends Controller
         $x_fp_timestamp = time();
 
         // The values that contribute to x_fp_hash
-        $hmac_data = $x_login . "^" . $x_fp_sequence . "^" . $x_fp_timestamp . "^" . $x_amount . "^" . $x_currency_code;
+        $hmac_data = $x_login.'^'.$x_fp_sequence.'^'.$x_fp_timestamp.'^'.$x_amount.'^'.$x_currency_code;
         $x_fp_hash = hash_hmac('MD5', $hmac_data, $transaction_key);
 
-        $data                    = [];
-        $data['action']          = 'https://checkout.globalgatewaye4.firstdata.com/payment';
-        $data['x_gateway_id']    = $x_gateway_id;
-        $data['x_login']         = $x_login;
-        $data['x_amount']        = $x_amount;
-        $data['x_fp_sequence']   = $x_fp_sequence;
-        $data['x_fp_timestamp']  = $x_fp_timestamp;
-        $data['x_fp_hash']       = $x_fp_hash;
+        $data = [];
+        $data['action'] = 'https://checkout.globalgatewaye4.firstdata.com/payment';
+        $data['x_gateway_id'] = $x_gateway_id;
+        $data['x_login'] = $x_login;
+        $data['x_amount'] = $x_amount;
+        $data['x_fp_sequence'] = $x_fp_sequence;
+        $data['x_fp_timestamp'] = $x_fp_timestamp;
+        $data['x_fp_hash'] = $x_fp_hash;
         $data['x_currency_code'] = $x_currency_code;
-        $data['x_cust_id']       = $x_cust_id;
-        $data['button_confirm']  = $this->language->get('button_confirm');
+        $data['x_cust_id'] = $x_cust_id;
+        $data['button_confirm'] = $this->language->get('button_confirm');
 
         return $this->load->view('extension/payment/payeezy', $data);
     }
@@ -72,7 +72,6 @@ class ControllerExtensionPaymentPayeezy extends Controller
         }
 
         if ($x_response_code == '1' && !is_null($x_cust_id)) {
-
             $this->load->model('checkout/order');
 
             // Set order to payed if reponse code is 1
